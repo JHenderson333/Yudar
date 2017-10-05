@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class BlueStrikeSpell : Spell {
     private float base_damage = 10;
-	// Use this for initialization
-	void Start () {
-        setCastTime(1f);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private readonly float cast_time = 1f;
+
+    private void Awake()
+    {
+        Start();
+        setCastTime(cast_time);
+        setType(SpellBook.SpellName.BlueStrike);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 

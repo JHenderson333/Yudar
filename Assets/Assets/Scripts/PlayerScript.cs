@@ -31,13 +31,11 @@ public class PlayerScript : MovingObject {
 		moving = false;
         chatObject = GameObject.Find("Chat Input");
         chatInput = chatObject.GetComponent<InputField>();
-        GameObject spellsObject = GameObject.Find("SpellBook");
 
         //creates the spellbook with intial spell
-        spells = spellsObject.GetComponent<SpellBook>();
-        GameObject blueStrikeObject = GameObject.Find("blue_strike");
-        Spell blueStrikeSpell = blueStrikeObject.GetComponent<BlueStrikeSpell>();
-        spells.addSpell(blueStrikeSpell);
+        loadSpells();
+
+
     }
 	protected override void Update(){
         if(health <= 0)
@@ -50,7 +48,7 @@ public class PlayerScript : MovingObject {
 		float y = Input.GetAxisRaw ("Vertical");
         Move(new Vector2(x, y));
 
-        if(Input.GetKeyDown("Alpha 1"))
+        if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             StartCoroutine(cast(spells.getSpell(SpellBook.SpellName.BlueStrike)));
         }
@@ -145,11 +143,19 @@ public class PlayerScript : MovingObject {
 
     protected IEnumerator cast(Spell spell)
     {
-        yield return new WaitForSeconds(1);
-        
-        spell.cast( new Vector2(3f, 3f));
+        yield return new WaitForSeconds(spell.getCastTime());
+        spell.cast(Format.mousePosition(Input.mousePosition));
         //TODO
 
     }
 
+
+    void loadSpells()
+    {
+        GameObject spellsObject = GameObject.Find("SpellBook");
+        spells = spellsObject.GetComponent<SpellBook>();
+        GameObject blueStrikeObject = GameObject.Find("blue_strike");
+        Spell blueStrikeSpell = blueStrikeObject.GetComponent<BlueStrikeSpell>();
+        spells.addSpell(blueStrikeSpell);
+    }
 }

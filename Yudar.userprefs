@@ -1,0 +1,16 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ScrollViewScript.cs">
+    <Files>
+      <File FileName="..\..\AppData\Local\Temp\89f0a971f7ba12846a05d45512852e48\Assets\_Complete-Game\Scripts\MovingObject.cs" Line="44" Column="4" />
+      <File FileName="Assets\InputFieldScript.cs" Line="24" Column="4" />
+      <File FileName="Assets\ScrollViewScript.cs" Line="11" Column="53" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <FunctionBreakpoint line="54" column="1" function="SmoothMovement" language="C#" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

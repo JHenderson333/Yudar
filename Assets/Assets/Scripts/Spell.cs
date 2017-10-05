@@ -11,12 +11,11 @@ public abstract class Spell : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	protected void Start () {
         spellAnimation = GetComponent<Animator>();
         position = GetComponent<Transform>();
         render = GetComponent<SpriteRenderer>();
         render.enabled = false;
-        type = SpellBook.SpellName.None;
 	}
 	
 	// Update is called once per frame
@@ -54,4 +53,10 @@ public abstract class Spell : MonoBehaviour {
     {
         this.position.position = position;
     }
+
+    protected void setType(SpellBook.SpellName type)
+    {
+        this.type = type;
+    }
+
 }
