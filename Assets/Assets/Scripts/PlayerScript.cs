@@ -22,6 +22,8 @@ public class PlayerScript : MovingObject {
     GameObject chatObject;
     InputField chatInput;
 
+    CastBar castBar;
+
 
     // Use this for initialization
     protected override void Start () {
@@ -34,7 +36,8 @@ public class PlayerScript : MovingObject {
 
         //creates the spellbook with intial spell
         loadSpells();
-
+        GameObject castBarObject = GameObject.Find("CastBar");
+        castBar = castBarObject.GetComponent<CastBar>();
 
     }
 	protected override void Update(){
@@ -143,6 +146,7 @@ public class PlayerScript : MovingObject {
 
     protected IEnumerator cast(Spell spell)
     {
+        castBar.activateCastBar(spell.getCastTime());
         yield return new WaitForSeconds(spell.getCastTime());
         spell.cast(Format.mousePosition(Input.mousePosition));
         //TODO
