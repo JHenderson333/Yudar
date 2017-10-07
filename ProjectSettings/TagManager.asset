@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Object
   - Transport
+  - WeakCollisionAbility
+  - Monster
   layers:
   - Default
   - TransparentFX

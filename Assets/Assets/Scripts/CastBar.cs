@@ -48,7 +48,6 @@ public class CastBar : MonoBehaviour {
     {
         float curTime = Time.time;
         float fillAmount = Time.time - castStartTime / castTime;
-        Debug.Log(fillAmount);
         if (fillAmount >= 1)
         {
             fillAmount = 1;

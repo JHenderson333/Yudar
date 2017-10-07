@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster1 : Monster {
+    private int maxHealth = 100;
     private static int moveRange = 20;
     private static float attackRange = 1f;
     private float attackSpeed = 1f;
     private Vector2 spawnPos;
     private float speed = 2f;
     private int damage = 10;
-    private int health;
     private bool hasFocus;
     private bool moving;
     private bool canAttack;
@@ -72,8 +72,13 @@ public class Monster1 : Monster {
         animator.SetFloat("input_y", end.y - rb2D.position.y);
 
         //Check space to move to for collidable object
+        handleCollision(end, dir);
+
+    }
+    public void handleCollision(Vector2 end, Vector2 dir)
+    {
         RaycastHit2D hit = Physics2D.Raycast(end, dir, 0);
-        if (hit.collider == null)
+        if (hit.collider == null || hit.collider.tag == "WeakCollisionAbility")
         { //No collider 
             moving = true;
             StartCoroutine(SmoothMovement(end));
@@ -86,12 +91,11 @@ public class Monster1 : Monster {
         }
         else
         {
+            Debug.Log(hit.collider.tag);
             moving = false;
             animator.SetBool("iswalking", false);
         }
-
     }
-
     protected override IEnumerator SmoothMovement(Vector3 end)
     {
         //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
@@ -119,11 +123,10 @@ public class Monster1 : Monster {
     {
         canAttack = false;
         PlayerScript targetPlayer = target.GetComponent<PlayerScript>();
-        if (targetPlayer.health > 0)
+        if (targetPlayer.isAlive())
         {
             yield return new WaitForSeconds(attackSpeed);
-            targetPlayer.health -= damage;
-            Debug.Log(targetPlayer.health);
+            targetPlayer.takeDamage(damage);
             canAttack = true;
 
         }
@@ -173,6 +176,17 @@ public class Monster1 : Monster {
             return true;
         }
         return false;
+    }
+
+    protected override IEnumerator die()
+    {
+        StopAllCoroutines();
+        rb2D.MovePosition(Vector2.zero);
+        transform.position = Vector2.zero;
+        setHealth(maxHealth);
+        moving = false;
+        setAlive(true);
+        yield return null;
     }
 }
 

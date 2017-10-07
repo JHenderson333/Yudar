@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class PlayerScript : MovingObject {
     public int maxHealth = 100;
-    public int health = 100;
 	private Animator animator;
 	private Rigidbody2D rb2D;
     private SpellBook spells;
-    bool alive;
 
     //Determines if the player is current moving
 	bool moving;
 
     //Multipliers for the speed of the player
     float speed = 10f;
+
+    bool casting;
 
     //Objects for checking if the chat box is selected
     GameObject chatObject;
@@ -27,9 +27,11 @@ public class PlayerScript : MovingObject {
 
     // Use this for initialization
     protected override void Start () {
-        alive = true;
+        setHealth(maxHealth);
+        casting = false;
 		animator = GetComponent<Animator> ();
 		rb2D = GetComponent<Rigidbody2D> ();
+        setAlive(true);
 		moving = false;
         chatObject = GameObject.Find("Chat Input");
         chatInput = chatObject.GetComponent<InputField>();
@@ -41,20 +43,13 @@ public class PlayerScript : MovingObject {
 
     }
 	protected override void Update(){
-        if(health <= 0)
-        {
-            alive = false;
-            StartCoroutine(die());
-            Debug.Log("Player has died");
-        }
+        isAlive();
 		float x = Input.GetAxisRaw ("Horizontal"); 
 		float y = Input.GetAxisRaw ("Vertical");
         Move(new Vector2(x, y));
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            StartCoroutine(cast(spells.getSpell(SpellBook.SpellName.BlueStrike)));
-        }
+        handleKeyStrokes();
+
 	}
 
 		
@@ -62,7 +57,7 @@ public class PlayerScript : MovingObject {
 	{
         Vector2 dir = new Vector2();
         Vector2 end = transform.position;
-        if (chatInput.isFocused || !alive)//Checks if player is currently using the chatbox
+        if (chatInput.isFocused || !isAlive())//Checks if player is currently using the chatbox
             return;
 
         if (moving || (input.x == 0 && input.y == 0)) //Already moving or no input movement
@@ -96,7 +91,7 @@ public class PlayerScript : MovingObject {
 
         //Check space to move to for collidable object
         RaycastHit2D hit = Physics2D.Raycast (end, dir, 0); 
-		if (hit.collider == null) { //No collider 
+		if (hit.collider == null || hit.collider.tag == "WeakCollisionAbility") { //No collider 
 			moving = true;
 			StartCoroutine (SmoothMovement (end));
 		} else if (hit.collider.tag == "Transport") {
@@ -133,22 +128,24 @@ public class PlayerScript : MovingObject {
         animator.SetBool("iswalking", false);
     }
 
-    protected IEnumerator die()
+    protected override IEnumerator die()
     {
         StopAllCoroutines();
         rb2D.MovePosition(Vector2.zero);
         transform.position = Vector2.zero;
-        health = 100;
+        setHealth(maxHealth);
         moving = false;
-        alive = true;
+        setAlive(true);
         yield return null;
     }
 
     protected IEnumerator cast(Spell spell)
     {
+        casting = true;
         castBar.activateCastBar(spell.getCastTime());
         yield return new WaitForSeconds(spell.getCastTime());
         spell.cast(Format.mousePosition(Input.mousePosition));
+        casting = false;
         //TODO
 
     }
@@ -161,5 +158,17 @@ public class PlayerScript : MovingObject {
         GameObject blueStrikeObject = GameObject.Find("blue_strike");
         Spell blueStrikeSpell = blueStrikeObject.GetComponent<BlueStrikeSpell>();
         spells.addSpell(blueStrikeSpell);
+    }
+
+    void handleKeyStrokes()
+    {
+        if (!casting)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(cast(spells.getSpell(SpellBook.SpellName.BlueStrike)));
+            }
+        }
+
     }
 }

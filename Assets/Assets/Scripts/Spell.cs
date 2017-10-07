@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Spell : MonoBehaviour {
-    private float castTime;
+    private float castTime, timeout;
     private SpellBook.SpellName type;
     private Animator spellAnimation;
     private Transform position;
@@ -57,6 +57,16 @@ public abstract class Spell : MonoBehaviour {
     protected void setType(SpellBook.SpellName type)
     {
         this.type = type;
+    }
+
+    protected void setTimeout(float timeout)
+    {
+        this.timeout = timeout;
+    }
+
+    protected Transform getTransform()
+    {
+        return position;
     }
 
 }

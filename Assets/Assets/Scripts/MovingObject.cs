@@ -3,7 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour {
+    int health;
+    bool alive;
 
+    public void setHealth(int health)
+    {
+        this.health = health;
+    }
+    public void takeDamage(int damage)
+    {
+        if (health > 0)
+        {
+            health -= damage;
+        }
+    }
+    public bool isAlive()
+    {
+        if(health <= 0)
+        {
+            alive = false;
+            StartCoroutine("die");
+        }
+        return alive;
+    }
+    protected void setAlive(bool alive)
+    {
+        this.alive = alive;
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+    protected abstract IEnumerator die();
     // Use this for initialization
     protected abstract void Start();
 

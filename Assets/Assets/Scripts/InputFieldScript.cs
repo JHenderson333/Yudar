@@ -15,7 +15,6 @@ public class InputFieldScript : MonoBehaviour {
         content = GameObject.Find("Content");
         chatText = content.GetComponentInChildren<Text>();
 		input = gameObject.GetComponent<InputField> ();
-        Debug.Log(input.name);
 		var se = new InputField.SubmitEvent ();
 		se.AddListener (SubmitMessage);
 		input.onEndEdit = se;
