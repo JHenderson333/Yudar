@@ -12,7 +12,7 @@ public abstract class MovingObject : MonoBehaviour {
     }
     public void takeDamage(int damage)
     {
-        if (health > 0)
+        if (isAlive())
         {
             health -= damage;
         }

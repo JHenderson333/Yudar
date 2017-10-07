@@ -89,6 +89,7 @@
     <Compile Include="Assets\Assets\Scripts\Monster1.cs" />
     <Compile Include="Assets\Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Assets\Scripts\NPC.cs" />
+    <Compile Include="Assets\Assets\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Assets\Scripts\PlayButtonScript.cs" />
     <Compile Include="Assets\Assets\Scripts\PlayerScript.cs" />
     <Compile Include="Assets\Assets\Scripts\Spell.cs" />
