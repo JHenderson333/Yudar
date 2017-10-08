@@ -14,22 +14,30 @@ public class CastBarScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        playerScript = player.GetComponent<PlayerScript>();
-        castbar = gameObject.GetComponent<Image>();
-        backbar = gameObject.GetComponentInChildren<Image>();
-        disable();
+        if (player.GetComponent<PlayerScript>().isLocalPlayer)
+        {
+            playerScript = player.GetComponent<PlayerScript>();
+            castbar = gameObject.GetComponent<Image>();
+            backbar = gameObject.GetComponentInChildren<Image>();
+            disable();
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (playerScript.isCasting() && !castbar.enabled) { 
-            activateCastBar(playerScript.getCurrentCastTime());
-            fillBar();
-        }
-        if (castbar.isActiveAndEnabled)
+        if (player.GetComponent<PlayerScript>().isLocalPlayer)
         {
-            fillBar();
+            if (playerScript.isCasting() && !castbar.enabled)
+            {
+                activateCastBar(playerScript.getCurrentCastTime());
+                fillBar();
+            }
+            if (castbar.isActiveAndEnabled)
+            {
+                fillBar();
+            }
         }
+        
 	}
     public void activateCastBar(float castTime)
     {

@@ -24,7 +24,6 @@ public class SpellBook : MonoBehaviour {
 
     public enum SpellName
     {
-        None,
         BlueStrike,
         RedStrike
 
@@ -33,6 +32,11 @@ public class SpellBook : MonoBehaviour {
     public int spellCount()
     {
         return spellBook.Count;
+    }
+
+    public GameObject getSpellObjectByIndex(int index)
+    {
+        return spells[index];
     }
 
 }

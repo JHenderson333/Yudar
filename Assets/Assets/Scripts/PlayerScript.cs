@@ -150,26 +150,26 @@ public class PlayerScript : MovingObject {
     protected IEnumerator cast(Spell spell)
     {
 
-        
+       
         casting = true;
         currentCastTime = spell.getCastTime();
+        Debug.Log("waiting for seconds ");
         yield return new WaitForSeconds(spell.getCastTime());
+        Debug.Log("done waiting");
         Vector2 pos = Format.mousePosition(Input.mousePosition);
-        GameObject clone = Instantiate(spell.gameObject, pos, new Quaternion(0, 0, 0, 0));
-        Debug.Log("Client should call clone next");
+        Debug.Log("position will be: " + pos + " and object will be: " + spell.gameObject);
+        Cmdcast((int)spell.identify(), spell.getTimeout(), pos);
         casting = false;
-        Cmdcast(clone, spell.getTimeout());
-
+        
 
     }
 
     [Command]
-    void Cmdcast(GameObject spell, float timeout)
+    void Cmdcast(int spellType, float timeout, Vector2 pos)
     {
-
-        Debug.Log("Client called commandcast spell");
-        NetworkServer.Spawn(spell);
-        Destroy(spell, timeout);
+        GameObject clone = Instantiate(spellBookObj.GetComponent<SpellBook>().getSpellObjectByIndex(spellType), pos, new Quaternion(0, 0, 0, 0));
+        NetworkServer.Spawn(clone);
+        Destroy(clone, timeout);
         
     }
 
@@ -183,13 +183,12 @@ public class PlayerScript : MovingObject {
 
     void handleKeyStrokes()
     {
-        if (!casting)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                StartCoroutine(cast(spells.getSpell(SpellBook.SpellName.BlueStrike)));
-            }
-        }
+
+    if (Input.GetKeyDown(KeyCode.Alpha1) && !casting)
+    {
+        Debug.Log("alpha 1 pressed: starting cast");
+        StartCoroutine(cast(spells.getSpell(SpellBook.SpellName.BlueStrike)));
+    }
 
     }
 

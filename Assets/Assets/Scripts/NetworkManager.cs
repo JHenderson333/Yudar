@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class NetworkManager : MonoBehaviour {
-
+public class NetworkManager : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
 		
