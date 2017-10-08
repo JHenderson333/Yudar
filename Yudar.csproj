@@ -78,24 +78,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Assets\Scripts\Abillity.cs" />
-    <Compile Include="Assets\Assets\Scripts\BlueStrikeSpell.cs" />
-    <Compile Include="Assets\Assets\Scripts\CastBarScript.cs" />
-    <Compile Include="Assets\Assets\Scripts\Format.cs" />
-    <Compile Include="Assets\Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Assets\Scripts\HealthBarScript.cs" />
-    <Compile Include="Assets\Assets\Scripts\InputFieldScript.cs" />
-    <Compile Include="Assets\Assets\Scripts\Monster.cs" />
-    <Compile Include="Assets\Assets\Scripts\Monster1.cs" />
-    <Compile Include="Assets\Assets\Scripts\MovingObject.cs" />
-    <Compile Include="Assets\Assets\Scripts\NPC.cs" />
-    <Compile Include="Assets\Assets\Scripts\NetworkManager.cs" />
-    <Compile Include="Assets\Assets\Scripts\PlayButtonScript.cs" />
-    <Compile Include="Assets\Assets\Scripts\PlayerCameraScript.cs" />
-    <Compile Include="Assets\Assets\Scripts\PlayerScript.cs" />
-    <Compile Include="Assets\Assets\Scripts\Spell.cs" />
-    <Compile Include="Assets\Assets\Scripts\SpellBook.cs" />
-    <Compile Include="Assets\Assets\Scripts\Warp.cs" />
+    <Compile Include="Assets\Assets\Scripts\Map\Warp.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\Abilities\Abillity.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\Abilities\Spells\BlueStrikeSpell.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\Abilities\Spells\Spell.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\Abilities\Spells\SpellBook.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\MovingObjects\Monster.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\MovingObjects\Monster1.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\MovingObjects\MovingObject.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\MovingObjects\NPC.cs" />
+    <Compile Include="Assets\Assets\Scripts\Physical Objects\MovingObjects\PlayerScript.cs" />
+    <Compile Include="Assets\Assets\Scripts\UI\CastBarScript.cs" />
+    <Compile Include="Assets\Assets\Scripts\UI\HealthBarScript.cs" />
+    <Compile Include="Assets\Assets\Scripts\UI\InputFieldScript.cs" />
+    <Compile Include="Assets\Assets\Scripts\UI\PlayButtonScript.cs" />
+    <Compile Include="Assets\Assets\Scripts\Util\Format.cs" />
+    <Compile Include="Assets\Assets\Scripts\Util\GameManager.cs" />
+    <Compile Include="Assets\Assets\Scripts\Util\NetworkManager.cs" />
+    <Compile Include="Assets\Assets\Scripts\Util\PlayerCameraScript.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\CircleObject.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\GroupLayer.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ImportBehaviour.cs" />

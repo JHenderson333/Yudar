@@ -219,3 +219,6 @@ UnityEngine.Networking.NetworkIdentity:UNetStaticUpdate() (at C:\buildslave\unit
  
 (Filename: C:/buildslave/unity/build/Extensions/Networking/Runtime/NetworkManager.cs Line: 1002)
 
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 858 -> priority: 1 
+  Thread -> id: 7164 -> priority: 1 

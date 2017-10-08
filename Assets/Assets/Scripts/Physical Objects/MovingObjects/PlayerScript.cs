@@ -5,11 +5,24 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Script for Player prefabs
+/// </summary>
 public class PlayerScript : MovingObject {
+    // Player health
     public int maxHealth = 100;
+
+    //Player animator
 	private Animator animator;
+
+    //Player rigidbody
 	private Rigidbody2D rb2D;
+
+    //SpellBook linked to player
     public GameObject spellBookObj;
+
+    //Spells for 
     private SpellBook spells;
 
     //Determines if the player is current moving
@@ -153,11 +166,8 @@ public class PlayerScript : MovingObject {
        
         casting = true;
         currentCastTime = spell.getCastTime();
-        Debug.Log("waiting for seconds ");
         yield return new WaitForSeconds(spell.getCastTime());
-        Debug.Log("done waiting");
         Vector2 pos = Format.mousePosition(Input.mousePosition);
-        Debug.Log("position will be: " + pos + " and object will be: " + spell.gameObject);
         Cmdcast((int)spell.identify(), spell.getTimeout(), pos);
         casting = false;
         
@@ -173,6 +183,7 @@ public class PlayerScript : MovingObject {
         
     }
 
+
     void loadSpells()
     {
         spells = spellBookObj.GetComponent<SpellBook>();
@@ -186,7 +197,6 @@ public class PlayerScript : MovingObject {
 
     if (Input.GetKeyDown(KeyCode.Alpha1) && !casting)
     {
-        Debug.Log("alpha 1 pressed: starting cast");
         StartCoroutine(cast(spells.getSpell(SpellBook.SpellName.BlueStrike)));
     }
 
