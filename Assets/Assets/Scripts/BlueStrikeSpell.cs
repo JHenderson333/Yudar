@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class BlueStrikeSpell : Spell {
     HashSet<MovingObject> colliders;
@@ -8,7 +9,7 @@ public class BlueStrikeSpell : Spell {
     private readonly float cast_time = 1f;
     private readonly float timeout = 3f;
 
-    private void Awake()
+    public void Awake()
     {
         Start();
         setCastTime(cast_time);
@@ -33,6 +34,7 @@ public class BlueStrikeSpell : Spell {
         BlueStrikeSpell spell = this;
         BlueStrikeSpell clone = Instantiate(spell, pos, new Quaternion(0, 0, 0, 0));
         clone.setTimeout(timeout);
+
     }
 
     public void handleCollision()

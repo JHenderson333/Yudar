@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class PlayerScript : MovingObject {
     public int maxHealth = 100;
 	private Animator animator;
 	private Rigidbody2D rb2D;
+    public GameObject spellBookObj;
     private SpellBook spells;
 
     //Determines if the player is current moving
@@ -22,11 +24,17 @@ public class PlayerScript : MovingObject {
     GameObject chatObject;
     InputField chatInput;
 
-    CastBar castBar;
+    //Used for castbar fill amount
+    private float currentCastTime;
+    
 
 
     // Use this for initialization
     protected override void Start () {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         setHealth(maxHealth);
         casting = false;
 		animator = GetComponent<Animator> ();
@@ -35,19 +43,21 @@ public class PlayerScript : MovingObject {
 		moving = false;
         chatObject = GameObject.Find("Chat Input");
         chatInput = chatObject.GetComponent<InputField>();
-
         //creates the spellbook with intial spell
         loadSpells();
-        GameObject castBarObject = GameObject.Find("CastBar");
-        castBar = castBarObject.GetComponent<CastBar>();
 
     }
 	protected override void Update(){
+        
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         isAlive();
-		float x = Input.GetAxisRaw ("Horizontal"); 
+        float x = Input.GetAxisRaw ("Horizontal"); 
 		float y = Input.GetAxisRaw ("Vertical");
         Move(new Vector2(x, y));
-
+        Debug.Log("move was called");
         handleKeyStrokes();
 
 	}
@@ -138,25 +148,37 @@ public class PlayerScript : MovingObject {
         setAlive(true);
         yield return null;
     }
-
     protected IEnumerator cast(Spell spell)
     {
+
+        
         casting = true;
-        castBar.activateCastBar(spell.getCastTime());
+        currentCastTime = spell.getCastTime();
         yield return new WaitForSeconds(spell.getCastTime());
-        spell.cast(Format.mousePosition(Input.mousePosition));
-        casting = false;
-        //TODO
+        Vector2 pos = Format.mousePosition(Input.mousePosition);
+        GameObject clone = Instantiate(spell.gameObject, pos, new Quaternion(0, 0, 0, 0));
+        Debug.Log("Client should call clone next");
+        Cmdcast(clone, spell.getTimeout());
+
 
     }
 
+    [Command]
+    void Cmdcast(GameObject spell, float timeout)
+    {
+
+        Debug.Log("Client called commandcast spell");
+        NetworkServer.Spawn(spell);
+        Destroy(spell, timeout);
+        
+        casting = false;
+    }
 
     void loadSpells()
     {
-        GameObject spellsObject = GameObject.Find("SpellBook");
-        spells = spellsObject.GetComponent<SpellBook>();
-        GameObject blueStrikeObject = GameObject.Find("blue_strike");
-        Spell blueStrikeSpell = blueStrikeObject.GetComponent<BlueStrikeSpell>();
+        spells = spellBookObj.GetComponent<SpellBook>();
+        BlueStrikeSpell blueStrikeSpell = spells.spells[0].GetComponent<BlueStrikeSpell>();
+        blueStrikeSpell.Awake();
         spells.addSpell(blueStrikeSpell);
     }
 
@@ -171,4 +193,15 @@ public class PlayerScript : MovingObject {
         }
 
     }
+
+    public Boolean isCasting()
+    {
+        return casting;
+    }
+
+    public float getCurrentCastTime()
+    {
+        return currentCastTime;
+    }
+
 }

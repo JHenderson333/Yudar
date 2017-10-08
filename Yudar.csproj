@@ -80,7 +80,7 @@
   <ItemGroup>
     <Compile Include="Assets\Assets\Scripts\Abillity.cs" />
     <Compile Include="Assets\Assets\Scripts\BlueStrikeSpell.cs" />
-    <Compile Include="Assets\Assets\Scripts\CastBar.cs" />
+    <Compile Include="Assets\Assets\Scripts\CastBarScript.cs" />
     <Compile Include="Assets\Assets\Scripts\Format.cs" />
     <Compile Include="Assets\Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Assets\Scripts\HealthBarScript.cs" />
@@ -91,6 +91,7 @@
     <Compile Include="Assets\Assets\Scripts\NPC.cs" />
     <Compile Include="Assets\Assets\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Assets\Scripts\PlayButtonScript.cs" />
+    <Compile Include="Assets\Assets\Scripts\PlayerCameraScript.cs" />
     <Compile Include="Assets\Assets\Scripts\PlayerScript.cs" />
     <Compile Include="Assets\Assets\Scripts\Spell.cs" />
     <Compile Include="Assets\Assets\Scripts\SpellBook.cs" />

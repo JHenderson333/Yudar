@@ -7,15 +7,12 @@ public abstract class Spell : MonoBehaviour {
     private SpellBook.SpellName type;
     private Animator spellAnimation;
     private Transform position;
-    private SpriteRenderer render;
 
 
 	// Use this for initialization
 	protected void Start () {
         spellAnimation = GetComponent<Animator>();
         position = GetComponent<Transform>();
-        render = GetComponent<SpriteRenderer>();
-        render.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -31,7 +28,6 @@ public abstract class Spell : MonoBehaviour {
     public void cast(Vector2 pos)
     {
         setPosition(pos);
-        render.enabled = true;
     }
 
     public void setCastTime(float castTime)
@@ -67,6 +63,11 @@ public abstract class Spell : MonoBehaviour {
     protected Transform getTransform()
     {
         return position;
+    }
+
+    public float getTimeout()
+    {
+        return timeout;
     }
 
 }

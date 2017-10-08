@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellBook : MonoBehaviour {
-    Dictionary<SpellName, Spell> spellBook = new Dictionary<SpellName, Spell>();
+   public GameObject[] spells;
+   Dictionary<SpellName, Spell> spellBook = new Dictionary<SpellName, Spell>();
 
 	// Use this for initialization
 	

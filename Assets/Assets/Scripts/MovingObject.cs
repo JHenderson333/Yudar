@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public abstract class MovingObject : MonoBehaviour {
+public abstract class MovingObject : NetworkBehaviour {
+    [SyncVar]
     int health;
     bool alive;
 
@@ -35,6 +37,7 @@ public abstract class MovingObject : MonoBehaviour {
     {
         return health;
     }
+
     protected abstract IEnumerator die();
     // Use this for initialization
     protected abstract void Start();
