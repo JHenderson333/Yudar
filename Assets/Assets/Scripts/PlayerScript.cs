@@ -57,7 +57,6 @@ public class PlayerScript : MovingObject {
         float x = Input.GetAxisRaw ("Horizontal"); 
 		float y = Input.GetAxisRaw ("Vertical");
         Move(new Vector2(x, y));
-        Debug.Log("move was called");
         handleKeyStrokes();
 
 	}
@@ -158,6 +157,7 @@ public class PlayerScript : MovingObject {
         Vector2 pos = Format.mousePosition(Input.mousePosition);
         GameObject clone = Instantiate(spell.gameObject, pos, new Quaternion(0, 0, 0, 0));
         Debug.Log("Client should call clone next");
+        casting = false;
         Cmdcast(clone, spell.getTimeout());
 
 
@@ -171,7 +171,6 @@ public class PlayerScript : MovingObject {
         NetworkServer.Spawn(spell);
         Destroy(spell, timeout);
         
-        casting = false;
     }
 
     void loadSpells()
